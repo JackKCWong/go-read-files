@@ -54,29 +54,29 @@ func memstat() {
 }
 
 func BenchmarkReadAsBytesWith1KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 1, ReadAsBytes)
+	bench(b, "data/old-newspaper."+filetype, 1, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith10KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 10, ReadAsBytes)
+	bench(b, "data/old-newspaper."+filetype, 10, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith100KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 100, ReadAsBytes)
+	bench(b, "data/old-newspaper."+filetype, 100, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith1MBBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 1024, ReadAsBytes)
+	bench(b, "data/old-newspaper."+filetype, 1024, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith10MBBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 10*1024, ReadAsBytes)
+	bench(b, "data/old-newspaper."+filetype, 10*1024, ReadAsBytes)
 }
 
 func BenchmarkScanAsTextWith100KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 100, ScanAsText)
+	bench(b, "data/old-newspaper."+filetype, 100, ScanAsText)
 }
 
 func BenchmarkScanAsBytesWith100KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small."+filetype, 100, ScanAsBytes)
+	bench(b, "data/old-newspaper."+filetype, 100, ScanAsBytes)
 }
