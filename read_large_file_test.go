@@ -2,6 +2,7 @@ package rlf
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -9,6 +10,12 @@ import (
 	"runtime"
 	"testing"
 )
+
+var filetype string
+
+func init() {
+	flag.StringVar(&filetype, "filetype", "utf8", "specify the file type to load. ascii|utf8|utf16")
+}
 
 type testfn func(*bufio.Reader, int) (int, int)
 
@@ -24,7 +31,7 @@ func bench(b *testing.B, filepath string, bufsize int, fn testfn) {
 		}
 
 		charCount, lineCount := fn(bufio.NewReaderSize(of, bufsize*1024), 0)
-		
+
 		of.Close()
 		log.Printf("%d bytes / %d lines read from %s.", charCount, lineCount, filepath)
 		// memstat()
@@ -47,29 +54,29 @@ func memstat() {
 }
 
 func BenchmarkReadAsBytesWith1KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 1, ReadAsBytes)
+	bench(b, "data/old-newspaper-small."+filetype, 1, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith10KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 10, ReadAsBytes)
+	bench(b, "data/old-newspaper-small."+filetype, 10, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith100KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 100, ReadAsBytes)
+	bench(b, "data/old-newspaper-small."+filetype, 100, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith1MBBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 1024, ReadAsBytes)
+	bench(b, "data/old-newspaper-small."+filetype, 1024, ReadAsBytes)
 }
 
 func BenchmarkReadAsBytesWith10MBBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 10*1024, ReadAsBytes)
+	bench(b, "data/old-newspaper-small."+filetype, 10*1024, ReadAsBytes)
 }
 
 func BenchmarkScanAsTextWith100KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 100, ScanAsText)
+	bench(b, "data/old-newspaper-small."+filetype, 100, ScanAsText)
 }
 
 func BenchmarkScanAsBytesWith100KBuf(b *testing.B) {
-	bench(b, "data/old-newspaper-small.ascii", 100, ScanAsBytes)
+	bench(b, "data/old-newspaper-small."+filetype, 100, ScanAsBytes)
 }
